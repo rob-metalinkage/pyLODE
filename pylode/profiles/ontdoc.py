@@ -10,6 +10,7 @@ from os.path import join
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DC, DCTERMS, DOAP, OWL, PROV, RDF, RDFS, SDO, SKOS
 from pylode.profiles.base import BaseProfile
+from pylode.template_utils.defsource_styles import register_filters
 
 
 class OntDoc(BaseProfile):
@@ -179,7 +180,9 @@ class OntDoc(BaseProfile):
         return restriction
 
     def _load_template(self, template_file):
-        return Environment(loader=FileSystemLoader(join(TEMPLATES_DIR, "ontdoc"))).get_template(template_file)
+        env =  Environment(loader=FileSystemLoader(join(TEMPLATES_DIR, "ontdoc"))).get_template(template_file)
+        env = register_filters(env)
+        return env
 
     def _make_formatted_uri(self, uri, type=None):
         # set display to CURIE
@@ -908,6 +911,7 @@ class OntDoc(BaseProfile):
             has_aps=self.METADATA.get("has_aps"),
             has_ps=self.METADATA.get("has_ps"),
             has_nis=self.METADATA.get("has_nis"),
+            contextdiagram=self._getcontextdiagram()
         )
 
     def _make_classes(self):
@@ -1281,3 +1285,6 @@ class OntDoc(BaseProfile):
             self.CLASSES[uri]["in_range_includes_of"] = html
 
         return self._make_document()
+
+    def _getcontextdiagram(self):
+        return "../images/model_matching.jpg"

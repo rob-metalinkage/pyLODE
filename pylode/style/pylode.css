@@ -177,3 +177,6 @@
             color: #336;
             text-decoration: none;
         }
+
+        /* highlight imported definition */
+        .importeddef { background: #B88 }

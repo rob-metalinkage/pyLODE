@@ -2,7 +2,8 @@ from os import path
 import requests
 from rdflib import util, Graph
 
-VERSION = "2.8.3"
+
+VERSION = "2.8.4"
 APP_DIR = path.dirname(path.realpath(__file__))
 TEMPLATES_DIR = path.join(path.dirname(path.realpath(__file__)), "templates")
 STYLE_DIR = path.join(path.dirname(path.realpath(__file__)), "style")
@@ -30,13 +31,15 @@ from .profiles import OntDoc, Prof, VocPub, PROFILES
 
 
 class MakeDocco:
-    def __init__(self, input_data_file=None, input_uri=None, data=None, outputformat="html", exclude_css=False, get_curies_online=False, profile="ontdoc"):
+    def __init__(self, input_data_file=None, input_graph=None, input_uri=None, data=None, outputformat="html", exclude_css=False, get_curies_online=False, profile="ontdoc"):
         """This class receives all of the variables needed to specify how to make documentation from an input RDF source
 
         :param input_data_file: An RDF file
         :type input_data_file: path (string)
         :param input_uri: A URI resolving to RDF data
         :type input_uri: A URI (string)
+        :param input_graph: A graph containing inout data
+        :type input_uri: rdflib.Graph
         :param data: RDF data
         :type data: Python varaible (string)
         :param outputformat: The desired output format form the list of supported formats (currently either "html" (default) or "md" for Markdown
@@ -72,6 +75,11 @@ class MakeDocco:
             self._parse_input_uri(input_uri)
         elif data is not None:
             self._parse_data(data)
+        elif input_graph is not None:
+            self.G = input_graph
+            #todo - pass this as metadata
+            self.source_info = ("input.ttl", "turtle")
+            self.publication_dir = path.dirname(path.realpath(__file__))
         else:
             raise Exception("You must supply either an input file or a URI for your ontology's RDF")
 

@@ -6,7 +6,7 @@
                 <td><code>{{ uri }}</code></td>
             </tr>
             {%- if is_defined_by is not none %}
-            <tr>
+            <tr {%- if is_defined_by |islocaluri is false %} class="importeddef"{%- endif %}>
                 <th>Is Defined By</th>
                 <td>
                     {{ is_defined_by }}
