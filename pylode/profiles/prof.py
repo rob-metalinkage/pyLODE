@@ -152,6 +152,7 @@ class Prof(BaseProfile):
         self.METADATA["contributors"] = set()
         self.METADATA["publishers"] = set()
         self.METADATA["profiles"] = set()
+        self.METADATA["transprofiles"] = set()
         for s in self.G.subjects(predicate=RDF.type, object=PROF.Profile):
             self.METADATA["uri"] = str(s)
             for p, o in self.G.predicate_objects(subject=s):
@@ -204,6 +205,9 @@ class Prof(BaseProfile):
                 if p == PROF.isProfileOf:
                     self.METADATA["profiles"].add(str(o))
 
+                if p == PROF.isTransitiveProfileOf:
+                    self.METADATA["transprofiles"].add(str(o))
+
                 # TODO: cater for other Agent representations
 
         if self.METADATA.get("label") is None:
@@ -230,6 +234,7 @@ class Prof(BaseProfile):
             repository=self.METADATA.get("repository"),
             prof_rdf=self._make_source_file_link(),
             profiles=self.METADATA["profiles"],
+            transprofiles=self.METADATA["transprofiles"],
             resource_descriptors=self.RESOURCE_DESCRIPTORS,
         )
 

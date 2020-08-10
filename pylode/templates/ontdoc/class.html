@@ -57,6 +57,16 @@
                 </td>
             </tr>
             {%- endif %}
+            {%- if equivalents|length > 0 %}
+            <tr>
+                <th>Alignments</th>
+                <td class="highlight-alignment">
+                    {%- for equivalent in equivalents %}
+                    {{ equivalent }}<br/>
+                    {%- endfor %}
+                </td>
+            </tr>
+            {%- endif %}
             {%- if restrictions|length > 0 %}
             <tr>
                 <th>Restrictions</th>

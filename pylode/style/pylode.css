@@ -180,3 +180,6 @@
 
         /* highlight imported definition */
         .importeddef { background: #B88 }
+
+        /* highlight alignment */
+        .highlight-alignment { background: #8B8 }

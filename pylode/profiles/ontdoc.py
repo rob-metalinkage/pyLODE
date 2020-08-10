@@ -941,6 +941,7 @@ class OntDoc(BaseProfile):
                     title=v["title"],
                     description=desc,
                     supers=v["supers"],
+                    equivalents=v["equivalents"],
                     restrictions=v["restrictions"],
                     scopeNote=v["scopeNote"],
                     example=eg,
@@ -1287,4 +1288,8 @@ class OntDoc(BaseProfile):
         return self._make_document()
 
     def _getcontextdiagram(self):
-        return "../images/model_matching.jpg"
+        import glob
+        try:
+            return glob.glob('contextdiagram.*')[0]
+        except:
+            return None

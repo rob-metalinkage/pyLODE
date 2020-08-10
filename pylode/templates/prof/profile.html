@@ -13,6 +13,14 @@
             {%- endfor %}
         </dd>
         {% endif %}
+        {% if transprofiles|length > 0 %}
+        <dt><a href="https://www.w3.org/TR/dx-prof/#Property:isTransitiveProfileOf">Is Transitive Profile Of</a></dt>
+        <dd>
+            {%- for transprofile in transprofiles %}
+            <a href="{{ transprofile }}">{{ transprofile }}</a><br/>
+            {%- endfor %}
+        </dd>
+        {% endif %}
         {%- if publishers|length > 0 %}
         <dt><a class="proplink" href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/publisher">Publisher</a>(s)</dt>
         <dd>
